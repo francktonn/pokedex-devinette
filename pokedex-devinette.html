@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Qui est ce Pokémon ? — Pokédex entre amis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #D6362A;
+    --red-dark: #8E1E15;
+    --red-darker: #5c130c;
+    --cream: #F6EFDD;
+    --screen-dark: #16210f;
+    --screen-glow: #9fd984;
+    --ink: #241f18;
+    --gold: #F4C542;
+    --line: rgba(0,0,0,.35);
+    --paper: #FBF7EC;
+    --radius-lg: 26px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --shadow-hard: 0 14px 0 var(--red-darker), 0 20px 30px rgba(0,0,0,.45);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at top, #3a3229 0%, #1c1712 55%, #100d0a 100%);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:28px 14px 60px;
+  }
+
+  .eyebrow{
+    font-family:'Silkscreen', monospace;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  /* ============ LAYOUT ============ */
+  .stage{
+    width:100%;
+    max-width:1080px;
+    display:grid;
+    grid-template-columns: minmax(0,460px) minmax(220px, 320px);
+    gap:28px;
+    align-items:start;
+    justify-content:center;
+  }
+  @media (max-width: 860px){
+    .stage{grid-template-columns: minmax(0, 460px); justify-items:center;}
+  }
+
+  /* ============ DEVICE ============ */
+  .device{
+    width:100%;
+    max-width:460px;
+    background: linear-gradient(160deg, var(--red) 0%, var(--red) 60%, var(--red-dark) 100%);
+    border-radius: var(--radius-lg);
+    padding:16px 16px 20px;
+    box-shadow: var(--shadow-hard);
+    position:relative;
+    border: 3px solid rgba(0,0,0,.25);
+  }
+
+  .device::before{ /* hinge notch top-left, physical device detail */
+    content:"";
+    position:absolute;
+    top:14px; left:14px;
+    width:14px; height:14px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,.15), 0 0 0 3px rgba(0,0,0,.15);
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:6px 6px 14px 40px;
+  }
+  .lights{display:flex; gap:7px; margin-left:auto;}
+  .light{
+    width:11px;height:11px;border-radius:50%;
+    background:#7a1810;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.5);
+    transition: background .25s, box-shadow .25s;
+  }
+  .light.on-yellow{background:var(--gold); box-shadow:0 0 8px var(--gold), inset 0 1px 1px rgba(255,255,255,.6);}
+  .light.on-green{background:#5ee06a; box-shadow:0 0 8px #5ee06a, inset 0 1px 1px rgba(255,255,255,.6);}
+
+  .brand{
+    font-family:'Silkscreen', monospace;
+    color:var(--paper);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-shadow: 0 2px 0 rgba(0,0,0,.3);
+  }
+
+  .dexno{
+    margin-left:auto;
+    font-family:'Silkscreen', monospace;
+    color:var(--gold);
+    font-size:13px;
+  }
+  .topbar .dexno{margin-left:0;}
+  .topbar-row2{display:flex; padding:0 6px 10px 40px; margin-top:-8px;}
+  .dex-numbers{
+    margin-left:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:1px;
+  }
+  .dex-numbers .dexno{ margin-left:0; }
+  .dexno-regional{
+    font-family:'Silkscreen', monospace;
+    color:var(--paper);
+    font-size:9.5px;
+    opacity:.8;
+  }
+
+  /* screen bezel */
+  .screen-frame{
+    background: var(--screen-dark);
+    border-radius: var(--radius-md);
+    padding:14px;
+    border: 6px solid #0c130a;
+    box-shadow: inset 0 0 0 3px rgba(159,217,132,.15), inset 0 10px 30px rgba(0,0,0,.6);
+    position:relative;
+    min-height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .screen-scanline{
+    position:absolute; inset:6px;
+    border-radius:10px;
+    background: repeating-linear-gradient(180deg, rgba(159,217,132,.035) 0px, rgba(159,217,132,.035) 2px, transparent 2px, transparent 4px);
+    pointer-events:none;
+  }
+
+  .screen-content{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    z-index:1;
+  }
+
+  .sprite-wrap{
+    width:190px; height:190px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .sprite-wrap img{
+    max-width:100%; max-height:100%;
+    image-rendering:auto;
+    filter: drop-shadow(0 10px 14px rgba(0,0,0,.5));
+    transition: filter .3s ease;
+  }
+
+  .empty-hint{
+    font-family:'Silkscreen', monospace;
+    color: var(--screen-glow);
+    font-size:12px;
+    text-align:center;
+    opacity:.75;
+    line-height:1.8;
+    padding: 10px;
+  }
+
+  .pokeball-spin{
+    width:64px;height:64px;
+    border-radius:50%;
+    background:
+      linear-gradient(#fff 0 0) center/22px 22px no-repeat,
+      linear-gradient(to bottom, var(--red) 50%, #fff 50%);
+    border:3px solid #17140f;
+    position:relative;
+    animation: spin 0.9s linear infinite;
+  }
+  .pokeball-spin::after{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:26px; height:26px; border-radius:50%;
+    border:3px solid #17140f; background:#eee;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  .loading-label{
+    font-family:'Silkscreen', monospace;
+    color:var(--screen-glow);
+    font-size:11px;
+    letter-spacing:.05em;
+  }
+
+  .dex-readout{
+    font-family:'Silkscreen', monospace;
+    color:var(--screen-glow);
+    font-size:11px;
+    text-align:center;
+    min-height:14px;
+  }
+
+  /* name plate */
+  .nameplate{
+    margin-top:14px;
+    background: var(--paper);
+    border-radius: var(--radius-sm);
+    padding:12px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.06), 0 4px 0 rgba(0,0,0,.15);
+  }
+  .pkm-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size: clamp(20px, 5vw, 26px);
+    color: var(--ink);
+    text-transform:capitalize;
+  }
+  .pkm-genus{
+    font-size:12px;
+    font-weight:600;
+    color:#6b6357;
+    font-style:italic;
+  }
+  .types{display:flex; gap:6px;}
+  .type-badge{
+    font-family:'Silkscreen', monospace;
+    font-size:9.5px;
+    color:#fff;
+    padding:5px 8px;
+    border-radius:999px;
+    text-transform:uppercase;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.25), 0 2px 3px rgba(0,0,0,.25);
+  }
+  .type-badge.placeholder{background:#a8a196;}
+
+  /* info card */
+  .info-card{
+    margin-top:10px;
+    background: var(--paper);
+    border-radius: var(--radius-sm);
+    padding:14px 16px 16px;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.06), 0 4px 0 rgba(0,0,0,.15);
+  }
+  .info-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .info-tile{
+    background:#fff;
+    border-radius:10px;
+    padding:8px 6px;
+    text-align:center;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  }
+  .info-tile .eyebrow{font-size:9px; color:#8c8474; display:block;}
+  .info-tile .val{font-family:'Baloo 2'; font-weight:700; font-size:14px; color:var(--ink);}
+
+  .section-label{
+    font-family:'Silkscreen', monospace;
+    font-size:10px;
+    color:#8c8474;
+    margin: 10px 0 6px;
+    letter-spacing:.05em;
+  }
+
+  .stats{display:flex; flex-direction:column; gap:6px;}
+  .stat-row{display:grid; grid-template-columns: 80px 1fr 30px; align-items:center; gap:8px;}
+  .stat-row .label{font-size:11px; font-weight:700; color:#6b6357;}
+  .stat-bar-bg{background:#efe9da; border-radius:6px; height:8px; overflow:hidden;}
+  .stat-bar-fill{height:100%; border-radius:6px; transition: width .6s ease;}
+  .stat-row .num{font-size:11px; font-weight:800; text-align:right; color:var(--ink);}
+
+  .evo-section{ margin-top:2px; }
+  .evo-row{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:4px;
+    margin-bottom:2px;
+  }
+  .evo-stage{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    background:#fff;
+    border-radius:10px;
+    padding:6px 10px 5px;
+    box-shadow: inset 0 0 0 1.5px rgba(0,0,0,.08);
+    font-family:'Nunito';
+    min-width:64px;
+  }
+  .evo-stage.current{
+    box-shadow: inset 0 0 0 2.5px var(--gold);
+  }
+  .evo-stage img{ width:40px; height:40px; object-fit:contain; }
+  .evo-stage .evo-name{ font-size:11px; font-weight:700; text-transform:capitalize; color:var(--ink); }
+  .evo-stage .evo-trigger{ font-size:9px; color:#8c8474; font-weight:600; }
+  .evo-arrow{
+    font-family:'Silkscreen', monospace;
+    font-size:15px;
+    color:#b0a894;
+    margin:0 2px;
+  }
+  .evo-none{ font-size:12px; color:#8c8474; font-style:italic; }
+
+  .flavor{
+    margin-top:12px;
+    background: var(--screen-dark);
+    color: var(--screen-glow);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:12.5px;
+    line-height:1.6;
+    font-style:italic;
+    position:relative;
+  }
+  .flavor::before{content:"“"; font-size:22px; opacity:.5; margin-right:2px;}
+
+  /* controls */
+  .controls{margin-top:16px; display:flex; flex-direction:column; gap:10px;}
+  .btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    border-radius:999px;
+    padding:13px 18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn:active{ transform: translateY(2px); }
+  .btn:focus-visible{ outline: 3px solid var(--gold); outline-offset:2px; }
+  .btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+  .btn-main{
+    background: var(--gold);
+    color: var(--red-darker);
+    box-shadow: 0 5px 0 #b8891f;
+  }
+  .btn-main:not(:disabled):hover{ filter:brightness(1.05); }
+  .btn-main:active{ box-shadow: 0 2px 0 #b8891f; }
+
+  .btn-row{display:flex; gap:8px;}
+  .btn-secondary{
+    flex:1;
+    background:#fff;
+    color: var(--red-dark);
+    font-size:13px;
+    box-shadow: 0 4px 0 rgba(0,0,0,.15);
+    padding:11px 8px;
+  }
+  .btn-secondary:active{ box-shadow: 0 1px 0 rgba(0,0,0,.15); }
+  .btn-secondary.copied{ color:#2a7a3d; }
+
+  /* ============ HISTORY PANEL ============ */
+  .history-panel{
+    width:100%;
+    max-width:460px;
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    padding:16px;
+    box-shadow: 0 10px 0 rgba(0,0,0,.18), 0 16px 24px rgba(0,0,0,.3);
+  }
+  .history-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .history-title{
+    font-family:'Silkscreen', monospace;
+    font-size:12px;
+    color:#6b6357;
+  }
+  .history-clear{
+    font-family:'Nunito';
+    font-weight:700;
+    font-size:11.5px;
+    color:var(--red-dark);
+    background:none;
+    border:none;
+    cursor:pointer;
+    text-decoration:underline;
+  }
+  .history-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    max-height:520px;
+    overflow-y:auto;
+  }
+  .history-empty{
+    font-size:12.5px;
+    color:#8c8474;
+    text-align:center;
+    padding:20px 10px;
+  }
+  .history-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border-radius:10px;
+    padding:6px 10px;
+    cursor:pointer;
+    border:none;
+    width:100%;
+    text-align:left;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    font-family:'Nunito';
+  }
+  .history-item:hover{ box-shadow: inset 0 0 0 1.5px var(--red); }
+  .history-item img{ width:36px; height:36px; object-fit:contain; }
+  .history-item .hname{ font-weight:700; text-transform:capitalize; font-size:13.5px; color:var(--ink);}
+  .history-item .hno{ font-family:'Silkscreen'; font-size:9.5px; color:#8c8474; margin-left:auto;}
+
+  @media (prefers-reduced-motion: reduce){
+    .pokeball-spin{ animation:none; }
+    .btn{ transition:none; }
+  }
+
+  @media (max-width:420px){
+    .sprite-wrap{ width:150px; height:150px; }
+    .info-grid{ grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <!-- DEVICE -->
+  <div class="device">
+    <div class="topbar">
+      <div class="lights">
+        <span class="light" id="lightBusy"></span>
+        <span class="light" id="lightReady"></span>
+      </div>
+    </div>
+    <div class="topbar-row2">
+      <span class="brand">POKÉDEX · DEVINETTE</span>
+      <div class="dex-numbers">
+        <span class="dexno" id="dexNo">N° ---</span>
+        <span class="dexno-regional" id="dexNoRegional"></span>
+      </div>
+    </div>
+
+    <div class="screen-frame">
+      <div class="screen-scanline"></div>
+      <div class="screen-content" id="screenContent">
+        <div class="empty-hint" id="emptyHint">
+          Appuie sur<br>« TIRER UN POKÉMON »<br>pour commencer la partie.
+        </div>
+      </div>
+    </div>
+
+    <div class="nameplate" id="nameplate" style="display:none;">
+      <div>
+        <div class="pkm-name" id="pkmName">???</div>
+        <div class="pkm-genus" id="pkmGenus"></div>
+      </div>
+      <div class="types" id="typesRow"></div>
+    </div>
+
+    <div class="info-card" id="infoCard" style="display:none;">
+      <div class="info-grid">
+        <div class="info-tile"><span class="eyebrow">Génération</span><div class="val" id="valGen">-</div></div>
+        <div class="info-tile"><span class="eyebrow">Taille</span><div class="val" id="valHeight">-</div></div>
+        <div class="info-tile"><span class="eyebrow">Poids</span><div class="val" id="valWeight">-</div></div>
+      </div>
+
+      <div class="section-label">Statistiques de base</div>
+      <div class="stats" id="statsRows"></div>
+
+      <div class="section-label">Évolutions</div>
+      <div class="evo-section" id="evoSection">
+        <div class="evo-row" id="evoRow"></div>
+      </div>
+
+      <div class="flavor" id="flavorText">…</div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-main" id="btnDraw">🎲 Tirer un Pokémon</button>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="btnCopy" disabled>📋 Copier les infos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="history-panel">
+    <div class="history-head">
+      <span class="history-title">HISTORIQUE DES TIRAGES</span>
+      <button class="history-clear" id="btnClearHistory">Effacer</button>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="history-empty" id="historyEmpty">Aucun tirage pour l'instant.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const MAX_DEX_ID = 807; // Génération I à VII
+  const HISTORY_KEY = "pokedex_devinette_history_v4";
+  const MAX_HISTORY = 25;
+
+  const TYPE_COLORS = {
+    normal:"#A8A77A", fire:"#EE8130", water:"#6390F0", electric:"#F7D02C",
+    grass:"#7AC74C", ice:"#96D9D6", fighting:"#C22E28", poison:"#A33EA1",
+    ground:"#E2BF65", flying:"#A98FF3", psychic:"#F95587", bug:"#A6B91A",
+    rock:"#B6A136", ghost:"#735797", dragon:"#6F35FC", dark:"#705746",
+    steel:"#B7B7CE", fairy:"#D685AD"
+  };
+  const TYPE_FR = {
+    normal:"Normal", fire:"Feu", water:"Eau", electric:"Électrik",
+    grass:"Plante", ice:"Glace", fighting:"Combat", poison:"Poison",
+    ground:"Sol", flying:"Vol", psychic:"Psy", bug:"Insecte",
+    rock:"Roche", ghost:"Spectre", dragon:"Dragon", dark:"Ténèbres",
+    steel:"Acier", fairy:"Fée"
+  };
+  const GEN_FR = {
+    "generation-i":"I","generation-ii":"II","generation-iii":"III",
+    "generation-iv":"IV","generation-v":"V","generation-vi":"VI","generation-vii":"VII"
+  };
+
+  // Préférence de pokédex régional par génération (le premier trouvé pour l'espèce est utilisé)
+  const REGIONAL_DEX_BY_GENERATION = {
+    "generation-i": ["kanto"],
+    "generation-ii": ["original-johto","updated-johto"],
+    "generation-iii": ["hoenn","updated-hoenn"],
+    "generation-iv": ["original-sinnoh","extended-sinnoh"],
+    "generation-v": ["original-unova","updated-unova"],
+    "generation-vi": ["kalos-central","kalos-coastal","kalos-mountain"],
+    "generation-vii": ["original-alola","original-melemele","original-akala","original-ulaula","original-poni","updated-alola"]
+  };
+
+  function regionLabelFromPokedexName(name){
+    if(name.startsWith("kalos")) return "Kalos";
+    if(name.indexOf("alola")>=0 || name.indexOf("melemele")>=0 || name.indexOf("akala")>=0 || name.indexOf("ulaula")>=0 || name.indexOf("poni")>=0) return "Alola";
+    if(name.indexOf("johto")>=0) return "Johto";
+    if(name.indexOf("sinnoh")>=0) return "Sinnoh";
+    if(name.indexOf("unova")>=0) return "Unova";
+    if(name.indexOf("hoenn")>=0) return "Hoenn";
+    if(name === "kanto") return "Kanto";
+    return name.split("-").map(s => s.charAt(0).toUpperCase()+s.slice(1)).join(" ");
+  }
+
+  function getRegionalDexEntry(species){
+    const entries = species.pokedex_numbers || [];
+    const nonNational = entries.filter(e => e.pokedex.name !== "national");
+    const preferred = REGIONAL_DEX_BY_GENERATION[species.generation.name] || [];
+    for(const pref of preferred){
+      const found = nonNational.find(e => e.pokedex.name === pref);
+      if(found) return { number: found.entry_number, region: regionLabelFromPokedexName(found.pokedex.name) };
+    }
+    if(nonNational.length > 0){
+      return { number: nonNational[0].entry_number, region: regionLabelFromPokedexName(nonNational[0].pokedex.name) };
+    }
+    return null;
+  }
+
+  const STAT_FR = {
+    hp:"PV", attack:"Attaque", defense:"Défense",
+    "special-attack":"Atq. Spé.", "special-defense":"Déf. Spé.", speed:"Vitesse"
+  };
+
+  const speciesBasicCache = {}; // species url -> {id, displayName}
+
+  // ---- DOM ----
+  const btnDraw = document.getElementById("btnDraw");
+  const btnCopy = document.getElementById("btnCopy");
+  const btnClearHistory = document.getElementById("btnClearHistory");
+  const screenContent = document.getElementById("screenContent");
+  const dexNo = document.getElementById("dexNo");
+  const dexNoRegional = document.getElementById("dexNoRegional");
+  const nameplate = document.getElementById("nameplate");
+  const infoCard = document.getElementById("infoCard");
+  const pkmName = document.getElementById("pkmName");
+  const pkmGenus = document.getElementById("pkmGenus");
+  const typesRow = document.getElementById("typesRow");
+  const valGen = document.getElementById("valGen");
+  const valHeight = document.getElementById("valHeight");
+  const valWeight = document.getElementById("valWeight");
+  const statsRows = document.getElementById("statsRows");
+  const flavorText = document.getElementById("flavorText");
+  const evoRow = document.getElementById("evoRow");
+  const lightBusy = document.getElementById("lightBusy");
+  const lightReady = document.getElementById("lightReady");
+  const historyList = document.getElementById("historyList");
+  const historyEmpty = document.getElementById("historyEmpty");
+
+  let current = null;      // fully loaded pokemon data object
+  let flickerTimer = null;
+
+  // ---------- Sound (WebAudio, no external files) ----------
+  let audioCtx = null;
+  function ensureAudio(){
+    if(!audioCtx){
+      try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ audioCtx = null; }
+    }
+    return audioCtx;
+  }
+  function beep(freq, duration, delay, type){
+    const ctx = ensureAudio();
+    if(!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type || "square";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.06, ctx.currentTime + (delay||0));
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (delay||0) + duration);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(ctx.currentTime + (delay||0));
+    osc.stop(ctx.currentTime + (delay||0) + duration + 0.02);
+  }
+  function soundDraw(){
+    beep(320,.07,0); beep(420,.07,.08); beep(520,.09,.16);
+  }
+  function soundReveal(){
+    beep(660,.08,0); beep(880,.12,.09);
+  }
+  // ---------- Sprites (URLs construites directement depuis l'ID, plus fiable que les champs parfois nuls de l'API) ----------
+  const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
+  function officialArtUrl(id){ return `${SPRITE_BASE}/other/official-artwork/${id}.png`; }
+  function smallSpriteUrl(id){ return `${SPRITE_BASE}/${id}.png`; }
+  const PLACEHOLDER_SPRITE = "data:image/svg+xml;utf8," + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="27" fill="#fff" stroke="#cfc7b6" stroke-width="3"/>
+      <path d="M5 32h22M37 32h22" stroke="#cfc7b6" stroke-width="3"/>
+      <circle cx="32" cy="32" r="8" fill="#fff" stroke="#cfc7b6" stroke-width="3"/>
+    </svg>`
+  );
+  // Crée un <img> qui essaie chaque URL de secours dans l'ordre, puis un pokéball placeholder si tout échoue
+  function createImgWithFallback(srcList, altText, className){
+    const img = document.createElement("img");
+    img.alt = altText || "";
+    if(className) img.className = className;
+    const queue = srcList.filter(Boolean).slice();
+    function tryNext(){
+      if(queue.length){
+        img.src = queue.shift();
+      } else {
+        img.onerror = null;
+        img.src = PLACEHOLDER_SPRITE;
+      }
+    }
+    img.addEventListener("error", tryNext);
+    tryNext();
+    return img;
+  }
+
+  // ---------- Helpers ----------
+  function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+  function formatName(name){
+    return name.split("-").map(capitalize).join(" ");
+  }
+  function frenchNameFrom(namesArray, fallbackSlug){
+    const entry = (namesArray||[]).find(n => n.language.name === "fr");
+    return entry ? entry.name : formatName(fallbackSlug);
+  }
+  function setLights(state){
+    lightBusy.className = "light" + (state==="busy" ? " on-yellow":"");
+    lightReady.className = "light" + (state==="ready" ? " on-green":"");
+  }
+
+  function randomId(){
+    return Math.floor(Math.random()*MAX_DEX_ID) + 1;
+  }
+
+  async function fetchJSON(url){
+    const res = await fetch(url);
+    if(!res.ok) throw new Error("Erreur réseau: "+url);
+    return res.json();
+  }
+
+  // Récupère le nom français et l'id d'une espèce d'évolution à partir de son URL (le sprite est
+  // construit directement depuis l'id, sans dépendre des champs sprite de l'API pokemon).
+  async function fetchEvoStageInfo(url){
+    if(speciesBasicCache[url]) return speciesBasicCache[url];
+    try{
+      const sp = await fetchJSON(url);
+      const info = { id: sp.id, displayName: frenchNameFrom(sp.names, sp.name) };
+      speciesBasicCache[url] = info;
+      return info;
+    }catch(e){
+      return { id: null, displayName: "???" };
+    }
+  }
+
+  function formatSlug(slug){
+    return slug.split("-").map(capitalize).join(" ");
+  }
+
+  function formatEvoTrigger(detail){
+    if(!detail) return "";
+    if(detail.min_level) return `Niveau ${detail.min_level}`;
+    if(detail.trigger && detail.trigger.name === "trade"){
+      return detail.held_item ? `Échange (${formatSlug(detail.held_item.name)})` : "Échange";
+    }
+    if(detail.trigger && detail.trigger.name === "use-item" && detail.item){
+      return formatSlug(detail.item.name);
+    }
+    if(detail.min_happiness) return "Amitié élevée";
+    if(detail.min_affection) return "Affection élevée";
+    if(detail.known_move) return `Connaît ${formatSlug(detail.known_move.name)}`;
+    if(detail.location) return "Lieu spécifique";
+    if(detail.trigger && detail.trigger.name === "shed") return "Place libre + Ball";
+    if(detail.time_of_day) return detail.time_of_day === "day" ? "De jour" : "De nuit";
+    return "Condition spéciale";
+  }
+
+  function parseEvoChain(node, parentName){
+    return {
+      name: node.species.name,
+      url: node.species.url,
+      parentName: parentName,
+      evolutionDetails: node.evolution_details && node.evolution_details[0],
+      children: (node.evolves_to || []).map(c => parseEvoChain(c, node.species.name))
+    };
+  }
+
+  function findEvoNode(node, name){
+    if(node.name === name) return node;
+    for(const child of node.children){
+      const found = findEvoNode(child, name);
+      if(found) return found;
+    }
+    return null;
+  }
+
+  function collectAncestors(root, targetName){
+    const path = [];
+    function dfs(node, trail){
+      if(node.name === targetName){ path.push(...trail); return true; }
+      for(const c of node.children){
+        if(dfs(c, [...trail, node])) return true;
+      }
+      return false;
+    }
+    dfs(root, []);
+    return path; // ordered root -> ... -> just before target
+  }
+
+  function collectDescendants(node){
+    const list = [];
+    for(const child of node.children){
+      list.push(child);
+      list.push(...collectDescendants(child));
+    }
+    return list;
+  }
+
+  async function buildEvolutionData(speciesData, currentName){
+    try{
+      const chainData = await fetchJSON(speciesData.evolution_chain.url);
+      const root = parseEvoChain(chainData.chain, null);
+      const currentNode = findEvoNode(root, currentName);
+      if(!currentNode) return { ancestors: [], descendants: [] };
+
+      const ancestorNodes = collectAncestors(root, currentName);
+      const descendantNodes = collectDescendants(currentNode);
+
+      const ancestors = await Promise.all(ancestorNodes.map(async n => {
+        const info = await fetchEvoStageInfo(n.url);
+        return { name: n.name, id: info.id, displayName: info.displayName, sprite: info.id ? smallSpriteUrl(info.id) : "" };
+      }));
+
+      const descendants = await Promise.all(descendantNodes.map(async n => {
+        const info = await fetchEvoStageInfo(n.url);
+        return { name: n.name, id: info.id, displayName: info.displayName, sprite: info.id ? smallSpriteUrl(info.id) : "", trigger: formatEvoTrigger(n.evolutionDetails) };
+      }));
+
+      return { ancestors, descendants };
+    }catch(e){
+      return { ancestors: [], descendants: [] };
+    }
+  }
+
+  async function loadPokemon(id){
+    const pokemon = await fetchJSON(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const species = await fetchJSON(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+
+    // Flavor text: prefer FR, fallback EN
+    let flavorEntry = species.flavor_text_entries.find(f => f.language.name === "fr")
+      || species.flavor_text_entries.find(f => f.language.name === "en");
+    let flavor = flavorEntry ? flavorEntry.flavor_text.replace(/[\n\f\r]/g," ").replace(/\s+/g," ").trim() : "Aucune description disponible.";
+
+    let genusEntry = species.genera.find(g => g.language.name === "fr") || species.genera.find(g=>g.language.name==="en");
+    let genus = genusEntry ? genusEntry.genus : "";
+
+    const evolution = await buildEvolutionData(species, species.name);
+    const regional = getRegionalDexEntry(species);
+    const displayName = frenchNameFrom(species.names, pokemon.name);
+
+    return {
+      id: pokemon.id,
+      name: pokemon.name,
+      displayName: displayName,
+      sprite: officialArtUrl(pokemon.id),
+      spriteSmall: smallSpriteUrl(pokemon.id),
+      types: pokemon.types.map(t => t.type.name),
+      generation: GEN_FR[species.generation.name] || "?",
+      heightM: (pokemon.height/10).toFixed(1),
+      weightKg: (pokemon.weight/10).toFixed(1),
+      stats: pokemon.stats.map(s => ({ name: s.stat.name, value: s.base_stat })),
+      flavor: flavor,
+      genus: genus,
+      evolution: evolution,
+      regionalNumber: regional ? regional.number : null,
+      regionalRegion: regional ? regional.region : null
+    };
+  }
+
+  // ---------- Rendering ----------
+  function renderLoading(){
+    screenContent.innerHTML = `
+      <div class="pokeball-spin"></div>
+      <div class="loading-label">RECHERCHE EN COURS…</div>
+    `;
+    nameplate.style.display = "none";
+    infoCard.style.display = "none";
+    btnCopy.disabled = true;
+    dexNoRegional.textContent = "";
+  }
+
+  function startDexFlicker(){
+    let ticks = 0;
+    flickerTimer = setInterval(() => {
+      dexNo.textContent = "N° " + String(Math.floor(Math.random()*MAX_DEX_ID)+1).padStart(3,"0");
+      ticks++;
+    }, 60);
+  }
+  function stopDexFlicker(finalId){
+    clearInterval(flickerTimer);
+    dexNo.textContent = "N° " + String(finalId).padStart(3,"0");
+  }
+
+  function renderPokemon(data){
+    current = data;
+
+    screenContent.innerHTML = `<div class="sprite-wrap" id="spriteWrap"></div>`;
+    const spriteWrap = document.getElementById("spriteWrap");
+    spriteWrap.appendChild(createImgWithFallback([data.sprite, data.spriteSmall], "Sprite Pokémon"));
+    nameplate.style.display = "flex";
+    infoCard.style.display = "block";
+    btnCopy.disabled = false;
+    setLights("ready");
+
+    pkmName.textContent = data.displayName;
+    pkmGenus.textContent = data.genus;
+
+    dexNoRegional.textContent = data.regionalNumber
+      ? `N° ${String(data.regionalNumber).padStart(3,"0")} (${data.regionalRegion})`
+      : "";
+
+    // types
+    typesRow.innerHTML = data.types.map(t =>
+      `<span class="type-badge" style="background:${TYPE_COLORS[t]||'#999'}">${TYPE_FR[t]||t}</span>`
+    ).join("");
+
+    valGen.textContent = data.generation;
+    valHeight.textContent = data.heightM + " m";
+    valWeight.textContent = data.weightKg + " kg";
+
+    statsRows.innerHTML = data.stats.map(s => {
+      const pct = Math.min(100, Math.round((s.value/180)*100));
+      const color = pct > 66 ? "#4caf50" : (pct > 33 ? "#F4C542" : "#D6362A");
+      return `<div class="stat-row">
+        <span class="label">${STAT_FR[s.name]||s.name}</span>
+        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${pct}%; background:${color};"></div></div>
+        <span class="num">${s.value}</span>
+      </div>`;
+    }).join("");
+
+    flavorText.textContent = data.flavor;
+
+    renderEvolutions(data);
+  }
+
+  function makeEvoStage(node, opts){
+    opts = opts || {};
+    const div = document.createElement("div");
+    div.className = "evo-stage" + (opts.current ? " current" : "");
+
+    const img = createImgWithFallback([node.sprite], "");
+    div.appendChild(img);
+
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "evo-name";
+    nameSpan.textContent = node.displayName || formatName(node.name);
+    div.appendChild(nameSpan);
+
+    if(opts.trigger){
+      const trig = document.createElement("span");
+      trig.className = "evo-trigger";
+      trig.textContent = opts.trigger;
+      div.appendChild(trig);
+    }
+    return div;
+  }
+  function makeEvoArrow(){
+    const span = document.createElement("span");
+    span.className = "evo-arrow";
+    span.textContent = "→";
+    return span;
+  }
+
+  function renderEvolutions(data){
+    const evo = data.evolution || { ancestors: [], descendants: [] };
+    evoRow.innerHTML = "";
+
+    // Pré-évolutions -> flèche -> ... -> Pokémon actuel (entouré) -> flèche -> évolutions suivantes
+    evo.ancestors.forEach(a => {
+      evoRow.appendChild(makeEvoStage(a));
+      evoRow.appendChild(makeEvoArrow());
+    });
+
+    evoRow.appendChild(makeEvoStage({ name: data.name, displayName: data.displayName, sprite: data.spriteSmall }, { current: true }));
+
+    if(evo.ancestors.length === 0 && evo.descendants.length === 0){
+      const none = document.createElement("div");
+      none.className = "evo-none";
+      none.textContent = "Ce Pokémon n'évolue pas et ne provient d'aucune évolution.";
+      evoRow.appendChild(none);
+      return;
+    }
+
+    evo.descendants.forEach(d => {
+      evoRow.appendChild(makeEvoArrow());
+      evoRow.appendChild(makeEvoStage(d, { trigger: d.trigger }));
+    });
+  }
+
+  // ---------- History (localStorage) ----------
+  function loadHistory(){
+    try{
+      return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+    }catch(e){ return []; }
+  }
+  function saveHistory(list){
+    try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); }catch(e){}
+  }
+  function pushHistory(data){
+    const list = loadHistory();
+    list.unshift(data);
+    if(list.length > MAX_HISTORY) list.length = MAX_HISTORY;
+    saveHistory(list);
+    renderHistory();
+  }
+  function renderHistory(){
+    const list = loadHistory();
+    historyList.innerHTML = "";
+    if(list.length === 0){
+      historyList.appendChild(historyEmpty);
+      historyEmpty.style.display = "block";
+      return;
+    }
+    list.forEach((d, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "history-item";
+      btn.dataset.idx = idx;
+
+      btn.appendChild(createImgWithFallback([d.spriteSmall, d.sprite], ""));
+
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "hname";
+      nameSpan.textContent = d.displayName || formatName(d.name);
+      btn.appendChild(nameSpan);
+
+      const noSpan = document.createElement("span");
+      noSpan.className = "hno";
+      noSpan.textContent = "N° " + String(d.id).padStart(3,"0");
+      btn.appendChild(noSpan);
+
+      historyList.appendChild(btn);
+    });
+    historyList.querySelectorAll(".history-item").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const list2 = loadHistory();
+        const d = list2[parseInt(btn.dataset.idx,10)];
+        if(d){
+          stopDexFlicker(d.id);
+          renderPokemon(d);
+          soundReveal();
+        }
+      });
+    });
+  }
+
+  // ---------- Actions ----------
+  async function drawPokemon(){
+    btnDraw.disabled = true;
+    setLights("busy");
+    renderLoading();
+    startDexFlicker();
+    soundDraw();
+    const id = randomId();
+    try{
+      const data = await loadPokemon(id);
+      // small delay so the "roulette" flicker is visible even on fast connections
+      await new Promise(r => setTimeout(r, 550));
+      stopDexFlicker(data.id);
+      renderPokemon(data);
+      pushHistory(data);
+      soundReveal();
+    }catch(err){
+      stopDexFlicker(id);
+      screenContent.innerHTML = `<div class="empty-hint">Erreur de chargement.<br>Vérifie ta connexion et réessaie.</div>`;
+      setLights(null);
+    }finally{
+      btnDraw.disabled = false;
+    }
+  }
+
+  async function copyInfo(){
+    if(!current) return;
+    const d = current;
+    const lines = [
+      `${d.displayName || formatName(d.name)} (N° ${String(d.id).padStart(3,"0")} national${d.regionalNumber ? `, N° ${String(d.regionalNumber).padStart(3,"0")} ${d.regionalRegion}` : ""})`,
+      d.genus,
+      `Types : ${d.types.map(t => TYPE_FR[t]||t).join(", ")}`,
+      `Génération : ${d.generation}`,
+      `Taille : ${d.heightM} m — Poids : ${d.weightKg} kg`,
+      `Stats : ${d.stats.map(s => (STAT_FR[s.name]||s.name)+" "+s.value).join(", ")}`,
+      `"${d.flavor}"`
+    ];
+    const text = lines.join("\n");
+    try{
+      await navigator.clipboard.writeText(text);
+      btnCopy.textContent = "✅ Copié !";
+      btnCopy.classList.add("copied");
+    }catch(e){
+      btnCopy.textContent = "Impossible de copier";
+    }
+    setTimeout(() => {
+      btnCopy.textContent = "📋 Copier";
+      btnCopy.classList.remove("copied");
+    }, 1600);
+  }
+
+  function clearHistory(){
+    saveHistory([]);
+    renderHistory();
+  }
+
+  // ---------- Init ----------
+  btnDraw.addEventListener("click", drawPokemon);
+  btnCopy.addEventListener("click", copyInfo);
+  btnClearHistory.addEventListener("click", clearHistory);
+  renderHistory();
+  setLights(null);
+})();
+</script>
+</body>
+</html>
