@@ -269,6 +269,16 @@
   }
   .info-tile .eyebrow{font-size:9px; color:#8c8474; display:block;}
   .info-tile .val{font-family:'Baloo 2'; font-weight:700; font-size:14px; color:var(--ink);}
+  .val.cat-legendary{color:#B8860B;}
+  .val.cat-mythical{color:#A33EA1;}
+  .val.cat-ultrabeast{color:#37474F;}
+  .val.cat-fossil{color:#8D6E63;}
+  .val.capture-very-easy, .val.capture-easy{color:#2e7d32;}
+  .val.capture-medium{color:#B8860B;}
+  .val.capture-hard, .val.capture-very-hard, .val.capture-extreme{color:#c62828;}
+  .val.cat-starter{color:#2e7d32;}
+  .val.cat-baby{color:#D685AD;}
+  .val.cat-wild{color:var(--ink);}
 
   .section-label{
     font-family:'Silkscreen', monospace;
@@ -500,6 +510,158 @@
   .history-item img{ width:36px; height:36px; object-fit:contain; }
   .history-item .hname{ font-weight:700; text-transform:capitalize; font-size:13.5px; color:var(--ink);}
   .history-item .hno{ font-family:'Silkscreen'; font-size:9.5px; color:#8c8474; margin-left:auto;}
+
+  /* ============ MULTIJOUEUR ============ */
+  .mp-panel .notepad-panel{ max-width:420px; max-height:min(680px, 90vh); }
+  .mp-section-label{
+    font-family:'Silkscreen', monospace;
+    font-size:11px;
+    color:#8c8474;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+  .mp-input{
+    border-radius:999px;
+    border:1px solid rgba(0,0,0,.12);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+    padding:10px 16px;
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    background:#fff;
+    width:100%;
+  }
+  .mp-input:focus{ outline:2px solid var(--gold); outline-offset:1px; }
+  .mp-code-input{
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    text-align:center;
+    font-family:'Silkscreen', monospace;
+  }
+  .mp-divider{
+    text-align:center;
+    font-size:11px;
+    color:#b0a898;
+    font-family:'Silkscreen', monospace;
+    margin:2px 0;
+  }
+  .mp-join-row, .mp-code-copy-row{ display:flex; gap:8px; }
+  .mp-join-row .mp-input{ flex:1; }
+  .mp-code-banner{
+    background:#fff;
+    border-radius:12px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .mp-code-banner .mp-code-value{
+    font-family:'Silkscreen', monospace;
+    font-size:20px;
+    letter-spacing:.15em;
+    color:var(--red-dark);
+  }
+  .mp-copy-code-btn{
+    background:none; border:none; cursor:pointer; font-size:16px;
+  }
+  .mp-my-secret{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border-radius:12px;
+    padding:8px 12px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    font-size:12.5px;
+    color:#6b6357;
+  }
+  .mp-my-secret img{ width:34px; height:34px; object-fit:contain; }
+  .mp-my-secret .mp-secret-name{ font-weight:700; color:var(--ink); text-transform:capitalize; }
+  .mp-players-list{ display:flex; flex-direction:column; gap:6px; }
+  .mp-player-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#fff;
+    border-radius:12px;
+    padding:8px 10px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    font-family:'Nunito', sans-serif;
+  }
+  .mp-player-row.is-me{ box-shadow: inset 0 0 0 1.5px var(--gold); }
+  .mp-player-name{ font-weight:700; font-size:13.5px; color:var(--ink); }
+  .mp-player-score{
+    font-family:'Silkscreen', monospace;
+    font-size:11px;
+    color:var(--red-dark);
+    background:rgba(214,54,42,.08);
+    border-radius:999px;
+    padding:3px 8px;
+  }
+  .mp-player-waiting{
+    margin-left:auto;
+    font-size:11px;
+    color:#b0a898;
+    font-style:italic;
+  }
+  .mp-guess-btn{
+    margin-left:auto;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    color:#fff;
+    background:var(--red);
+    border:none;
+    border-radius:999px;
+    padding:6px 12px;
+    cursor:pointer;
+    box-shadow: 0 3px 0 var(--red-darker);
+  }
+  .mp-guess-btn:active{ transform:translateY(2px); box-shadow:0 1px 0 var(--red-darker); }
+  .mp-guess-box{
+    background:#fff;
+    border-radius:12px;
+    padding:12px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 6px 14px rgba(0,0,0,.12);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .mp-guess-box .mp-guess-title{ font-size:13px; font-weight:700; color:var(--ink); }
+  .mp-guess-feedback{ font-size:12.5px; font-weight:700; text-align:center; }
+  .mp-guess-feedback.ok{ color:#2a7a3d; }
+  .mp-guess-feedback.ko{ color:var(--red-dark); }
+  .mp-leave-btn{
+    font-family:'Nunito';
+    font-weight:700;
+    font-size:11.5px;
+    color:var(--red-dark);
+    background:none;
+    border:none;
+    cursor:pointer;
+    text-decoration:underline;
+    align-self:center;
+    margin-top:2px;
+  }
+  .mp-note{
+    font-size:11px;
+    color:#b0a898;
+    line-height:1.5;
+    text-align:center;
+  }
+  .mp-round-banner{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    text-align:center;
+    color:#8a5a00;
+    background:#fff3d0;
+    border-radius:10px;
+    padding:8px 10px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  }
 
   @media (prefers-reduced-motion: reduce){
     .pokeball-spin{ animation:none; }
@@ -785,13 +947,12 @@
         <div class="info-tile"><span class="eyebrow">Poids</span><div class="val" id="valWeight">-</div></div>
         <div class="info-tile"><span class="eyebrow">Habitat</span><div class="val" id="valHabitat">-</div></div>
         <div class="info-tile"><span class="eyebrow">Couleur</span><div class="val" id="valColor">-</div></div>
+        <div class="info-tile"><span class="eyebrow">Catégorie</span><div class="val" id="valCategory">-</div></div>
+        <div class="info-tile"><span class="eyebrow">Capture</span><div class="val" id="valCapture">-</div></div>
       </div>
 
       <div class="section-label">Faiblesses &amp; résistances</div>
       <div class="type-effect" id="typeEffect"></div>
-
-      <div class="section-label">Statistiques de base</div>
-      <div class="stats" id="statsRows"></div>
 
       <div class="section-label">Évolutions</div>
       <div class="evo-section" id="evoSection">
@@ -827,7 +988,21 @@
 <!-- FLOATING ACTION BUTTONS -->
 <div class="fab-stack">
   <button class="fab-btn" id="btnSearch" title="Rechercher un Pokémon" aria-label="Rechercher un Pokémon">🔍</button>
+  <button class="fab-btn" id="btnMultiplayer" title="Multijoueur" aria-label="Ouvrir le mode multijoueur">👥</button>
   <button class="fab-btn" id="btnNotepad" title="Bloc-note" aria-label="Ouvrir le bloc-note">📝</button>
+</div>
+
+<!-- MULTIJOUEUR -->
+<div class="notepad-overlay mp-panel" id="mpOverlay">
+  <div class="notepad-panel">
+    <div class="notepad-head">
+      <span class="notepad-title" id="mpTitle">👥 MULTIJOUEUR</span>
+      <button class="notepad-close" id="btnMpClose" aria-label="Fermer">✕</button>
+    </div>
+    <div class="notepad-body" id="mpBody">
+      <!-- rempli dynamiquement en JS -->
+    </div>
+  </div>
 </div>
 
 <!-- SEARCH (rechercher un pokémon) -->
@@ -872,13 +1047,12 @@
             <div class="info-tile"><span class="eyebrow">Poids</span><div class="val" id="searchValWeight">-</div></div>
             <div class="info-tile"><span class="eyebrow">Habitat</span><div class="val" id="searchValHabitat">-</div></div>
             <div class="info-tile"><span class="eyebrow">Couleur</span><div class="val" id="searchValColor">-</div></div>
+            <div class="info-tile"><span class="eyebrow">Catégorie</span><div class="val" id="searchValCategory">-</div></div>
+            <div class="info-tile"><span class="eyebrow">Capture</span><div class="val" id="searchValCapture">-</div></div>
           </div>
 
           <div class="section-label">Faiblesses &amp; résistances</div>
           <div class="type-effect" id="searchTypeEffect"></div>
-
-          <div class="section-label">Statistiques de base</div>
-          <div class="stats" id="searchStatsRows"></div>
 
           <div class="section-label">Évolutions</div>
           <div class="evo-section"><div class="evo-row" id="searchEvoRow"></div></div>
@@ -1059,11 +1233,6 @@
     return null;
   }
 
-  const STAT_FR = {
-    hp:"PV", attack:"Attaque", defense:"Défense",
-    "special-attack":"Atq. Spé.", "special-defense":"Déf. Spé.", speed:"Vitesse"
-  };
-
   const speciesBasicCache = {}; // species url -> {id, displayName}
 
   // ---- DOM ----
@@ -1083,8 +1252,9 @@
   const valWeight = document.getElementById("valWeight");
   const valHabitat = document.getElementById("valHabitat");
   const valColor = document.getElementById("valColor");
+  const valCategory = document.getElementById("valCategory");
+  const valCapture = document.getElementById("valCapture");
   const typeEffect = document.getElementById("typeEffect");
-  const statsRows = document.getElementById("statsRows");
   const flavorText = document.getElementById("flavorText");
   const evoRow = document.getElementById("evoRow");
   const formsLabel = document.getElementById("formsLabel");
@@ -1099,6 +1269,11 @@
   const notepadOverlay = document.getElementById("notepadOverlay");
   const notepadText = document.getElementById("notepadText");
   const notepadStatus = document.getElementById("notepadStatus");
+
+  const btnMultiplayer = document.getElementById("btnMultiplayer");
+  const btnMpClose = document.getElementById("btnMpClose");
+  const mpOverlay = document.getElementById("mpOverlay");
+  const mpBody = document.getElementById("mpBody");
 
   const btnSearch = document.getElementById("btnSearch");
   const btnSearchClose = document.getElementById("btnSearchClose");
@@ -1119,8 +1294,9 @@
   const searchValWeight = document.getElementById("searchValWeight");
   const searchValHabitat = document.getElementById("searchValHabitat");
   const searchValColor = document.getElementById("searchValColor");
+  const searchValCategory = document.getElementById("searchValCategory");
+  const searchValCapture = document.getElementById("searchValCapture");
   const searchTypeEffect = document.getElementById("searchTypeEffect");
-  const searchStatsRows = document.getElementById("searchStatsRows");
   const searchEvoRow = document.getElementById("searchEvoRow");
   const searchFormsLabel = document.getElementById("searchFormsLabel");
   const searchFormsRow = document.getElementById("searchFormsRow");
@@ -1442,6 +1618,74 @@
     }
   }
 
+  // Pokémon starters (génération I à VII) : offerts au début de l'aventure par le professeur.
+  // On part des premières formes, puis on ajoute automatiquement leurs évolutions (chaque
+  // ligne de starter compte 3 stades consécutifs dans le Pokédex national).
+  const STARTER_BASE_SPECIES_IDS = [
+    1, 4, 7,       // Kanto : Bulbizarre, Salamèche, Carapuce
+    152, 155, 158, // Johto : Germignon, Héricendre, Kaiminus
+    252, 255, 258, // Hoenn : Arcko, Poussifeu, Gobou
+    387, 390, 393, // Sinnoh : Tortipouss, Ouisticram, Tiplouf
+    495, 498, 501, // Unys : Vipélierre, Gruikui, Moustillon
+    650, 653, 656, // Kalos : Marisson, Feunnec, Grenousse
+    722, 725, 728  // Alola : Brindibou, Flamiaou, Otaquin
+  ];
+  const STARTER_SPECIES_IDS = new Set(
+    STARTER_BASE_SPECIES_IDS.flatMap(id => [id, id + 1, id + 2])
+  );
+
+  // Ultra-chimères (génération VII) : l'API PokeAPI ne les distingue pas via un champ dédié
+  // (is_legendary/is_mythical valent false pour elles), donc on les liste explicitement.
+  const ULTRA_BEAST_SPECIES_IDS = new Set([
+    793, // Nihilego
+    794, // Sabreboule (Buzzwole)
+    795, // Guêpanthère (Pheromosa)
+    796, // Fulguris (Xurkitree)
+    797, // Néo-Croiseur (Celesteela)
+    798, // Katagami (Kartana)
+    799, // Engloutyran (Guzzlord)
+    803, // Vorasterie (Poipole)
+    804, // Naganadel
+    805, // Forteresse (Stakataka)
+    806  // Pyrobut (Blacephalon)
+  ]);
+
+  // Pokémon fossiles (génération I à VII) : ressuscités à partir d'un fossile.
+  const FOSSIL_SPECIES_IDS = new Set([
+    138, 139, // Amonita, Amonistar
+    140, 141, // Kabuto, Kabutops
+    142,      // Ptéra
+    347, 348, // Anorith, Armaldo
+    408, 409, // Sinistrale, Sinistrail (Cranidos, Rampardos)
+    410, 411, // Dinoclier, Bastiodon
+    564, 565, // Tortufoc, Tortupatriarche (Tirtouga, Carracosta)
+    566, 567, // Arkéapti, Aéroptéryx (Archen, Archeops)
+    696, 697, // Ptyranidur, Rexilius (Tyrunt, Tyrantrum)
+    698, 699  // Amagara, Dragmara (Amaura, Aurorus)
+  ]);
+
+  // Détermine la catégorie d'un Pokémon (légendaire, fabuleux, ultra-chimère, fossile,
+  // starter, bébé ou sauvage) à partir des indicateurs fournis par l'API et des listes ci-dessus.
+  function categoryFor(species){
+    if(species.is_mythical) return { key:"mythical", label:"Fabuleux", icon:"✨" };
+    if(species.is_legendary) return { key:"legendary", label:"Légendaire", icon:"⭐" };
+    if(ULTRA_BEAST_SPECIES_IDS.has(species.id)) return { key:"ultrabeast", label:"Ultra-chimère", icon:"👾" };
+    if(FOSSIL_SPECIES_IDS.has(species.id)) return { key:"fossil", label:"Fossile", icon:"🦴" };
+    if(STARTER_SPECIES_IDS.has(species.id)) return { key:"starter", label:"Starter", icon:"🌱" };
+    if(species.is_baby) return { key:"baby", label:"Bébé", icon:"🍼" };
+    return { key:"wild", label:"Sauvage", icon:"🐾" };
+  }
+
+  // Traduit le capture_rate brut de l'API (0 à 255) en une indication simple pour les joueurs.
+  function captureRateInfo(rate){
+    if(rate >= 200) return { key:"very-easy", label:"Très facile", icon:"🟢" };
+    if(rate >= 120) return { key:"easy", label:"Facile", icon:"🟢" };
+    if(rate >= 60)  return { key:"medium", label:"Moyenne", icon:"🟡" };
+    if(rate >= 30)  return { key:"hard", label:"Difficile", icon:"🟠" };
+    if(rate >= 10)  return { key:"very-hard", label:"Très difficile", icon:"🔴" };
+    return { key:"extreme", label:"Extrême", icon:"🔴" };
+  }
+
   async function loadPokemon(id){
     const pokemon = await fetchJSON(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const species = await fetchJSON(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
@@ -1495,6 +1739,8 @@
       regionalRegion: regional ? regional.region : null,
       habitat: species.habitat ? (HABITAT_FR[species.habitat.name] || formatSlug(species.habitat.name)) : "Inconnu",
       color: species.color ? (COLOR_FR[species.color.name] || formatSlug(species.color.name)) : "Inconnue",
+      category: categoryFor(species),
+      captureRate: captureRateInfo(species.capture_rate),
       forms: forms
     };
   }
@@ -1598,18 +1844,6 @@
     return spriteWrap;
   }
 
-  function buildStatsHTML(stats){
-    return stats.map(s => {
-      const pct = Math.min(100, Math.round((s.value/180)*100));
-      const color = pct > 66 ? "#4caf50" : (pct > 33 ? "#F4C542" : "#D6362A");
-      return `<div class="stat-row">
-        <span class="label">${STAT_FR[s.name]||s.name}</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${pct}%; background:${color};"></div></div>
-        <span class="num">${s.value}</span>
-      </div>`;
-    }).join("");
-  }
-
   function buildTypesHTML(types){
     return types.map(t =>
       `<span class="type-badge" style="background:${TYPE_COLORS[t]||'#999'}">${TYPE_FR[t]||t}</span>`
@@ -1641,10 +1875,13 @@
     valWeight.textContent = data.weightKg + " kg";
     valHabitat.textContent = data.habitat;
     valColor.textContent = data.color;
+    valCategory.textContent = `${data.category.icon} ${data.category.label}`;
+    valCategory.className = "val cat-" + data.category.key;
+    valCapture.textContent = `${data.captureRate.icon} ${data.captureRate.label}`;
+    valCapture.className = "val capture-" + data.captureRate.key;
 
     renderTypeEffect(data.types);
 
-    statsRows.innerHTML = buildStatsHTML(data.stats);
 
     flavorText.textContent = data.flavor;
 
@@ -1802,7 +2039,18 @@
   }
   function closeSearch(){
     searchOverlay.classList.remove("open");
+    resetSearchPanel();
+  }
+
+  // Remet le panneau de recherche à son état initial : champ vidé, aucun résultat ni
+  // erreur affichés, suggestions masquées, indice de nouveau visible.
+  function resetSearchPanel(){
     hideSuggestions();
+    searchInput.value = "";
+    searchResultBody.style.display = "none";
+    searchError.style.display = "none";
+    searchLoading.style.display = "none";
+    searchHint.style.display = "block";
   }
 
   function renderSearchResult(data){
@@ -1818,9 +2066,12 @@
     searchValWeight.textContent = data.weightKg + " kg";
     searchValHabitat.textContent = data.habitat;
     searchValColor.textContent = data.color;
+    searchValCategory.textContent = `${data.category.icon} ${data.category.label}`;
+    searchValCategory.className = "val cat-" + data.category.key;
+    searchValCapture.textContent = `${data.captureRate.icon} ${data.captureRate.label}`;
+    searchValCapture.className = "val capture-" + data.captureRate.key;
 
     searchTypeEffect.innerHTML = buildTypeEffectHTML(data.types);
-    searchStatsRows.innerHTML = buildStatsHTML(data.stats);
     searchFlavorText.textContent = data.flavor;
 
     renderEvolutions(data, searchEvoRow);
@@ -2095,6 +2346,486 @@
     }
   }
 
+  // ---------- Multijoueur ----------
+  // Principe : une "partie" est un objet stocké côté serveur (fonction serverless
+  // /api/room, voir api/room.js) sous une clé indexée par le code de la partie.
+  // Le serveur est le seul à connaître le vrai nom du Pokémon secret de chacun : il
+  // tranche lui-même les devinettes, donc personne ne peut "tricher" en lisant les
+  // données brutes. Le client sonde régulièrement /api/room (polling) pour rafraîchir
+  // le tableau des scores.
+  const MP_API = "/api/room";
+  const MP_SESSION_KEY = "pokedex_devinette_mp_session_v1";
+  const MP_POLL_MS = 3000;
+
+  let mpRoomCode = null;
+  let mpPlayerId = null;
+  let mpPlayerName = null;
+  let mpPollTimer = null;
+  let mpGuessTargetId = null;
+  let mpBusy = false;
+  let mpLastRenderedPokemonId = null; // dernier secret déjà affiché sur l'écran principal du Pokédex
+  let mpCurrentStatus = null; // statut de la manche en cours ('lobby' | 'playing' | null si pas en partie)
+
+  // Le tirage aléatoire "solo" (bouton principal du Pokédex) est désactivé pendant
+  // qu'une manche multijoueur est active : sinon on pourrait re-tirer librement un
+  // Pokémon random par-dessus son secret en pleine partie.
+  function mpUpdateDrawAvailability(){
+    const locked = !!(mpRoomCode && mpCurrentStatus === "playing");
+    btnDraw.disabled = locked;
+    btnDraw.title = locked ? "Indisponible pendant une manche multijoueur en cours" : "";
+  }
+
+  function mpEscapeHtml(s){
+    return (s == null ? "" : String(s)).replace(/[&<>"']/g, c => (
+      { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]
+    ));
+  }
+
+  function mpSaveSession(){
+    try{
+      localStorage.setItem(MP_SESSION_KEY, JSON.stringify({
+        code: mpRoomCode, playerId: mpPlayerId, name: mpPlayerName
+      }));
+    }catch(e){}
+  }
+  function mpLoadSession(){
+    try{
+      const raw = localStorage.getItem(MP_SESSION_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+  function mpClearSession(){
+    try{ localStorage.removeItem(MP_SESSION_KEY); }catch(e){}
+  }
+
+  // Récupère l'état (sanitisé) d'une partie : liste des joueurs/scores, et mon propre
+  // Pokémon secret si `playerId` est fourni. Ne contient jamais le nom du secret des
+  // autres joueurs (le serveur le garde pour lui).
+  async function mpApiGetState(code, playerId){
+    const params = new URLSearchParams({ code });
+    if(playerId) params.set("playerId", playerId);
+    try{
+      const res = await fetch(`${MP_API}?${params.toString()}`);
+      if(!res.ok) return null;
+      return await res.json();
+    }catch(e){ return null; }
+  }
+  async function mpApiPost(action, payload){
+    const res = await fetch(MP_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action, ...payload })
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new Error(data.error || "Erreur serveur");
+    return data;
+  }
+
+  function mpOpen(){
+    mpOverlay.classList.add("open");
+    if(mpRoomCode){
+      mpRenderRoomShell();
+      mpStartPolling();
+    }else{
+      mpRenderEntry();
+    }
+  }
+  function mpClose(){
+    mpOverlay.classList.remove("open");
+    // Le sondage continue en arrière-plan même popup fermée, pour que l'écran
+    // principal se mette à jour tout seul (nouveau secret, nouvelle manche...)
+    // sans devoir rouvrir l'onglet Multijoueur à chaque fois.
+  }
+
+  function mpStartPolling(){
+    mpStopPolling();
+    mpPollTimer = setInterval(async () => {
+      if(!mpRoomCode) return;
+      const state = await mpApiGetState(mpRoomCode, mpPlayerId);
+      if(state){ mpRenderPlayersList(state); mpSyncMainScreen(state); }
+    }, MP_POLL_MS);
+  }
+  function mpStopPolling(){
+    if(mpPollTimer){ clearInterval(mpPollTimer); mpPollTimer = null; }
+  }
+
+  // ---- Écran d'accueil (créer / rejoindre) ----
+  function mpRenderEntry(errorMsg){
+    mpBody.innerHTML = `
+      <div class="mp-note">Crée une partie et partage le code à tes amis (ou plus), ou rejoins une partie existante.</div>
+      <div class="mp-section-label">Ton pseudo</div>
+      <input type="text" id="mpNameInput" class="mp-input" maxlength="16" placeholder="Ton pseudo" autocomplete="off">
+      <button class="btn btn-main" id="mpCreateBtn">✨ Créer une partie</button>
+      <div class="mp-divider">— OU —</div>
+      <div class="mp-section-label">Code de la partie</div>
+      <div class="mp-join-row">
+        <input type="text" id="mpCodeInput" class="mp-input mp-code-input" maxlength="5" placeholder="CODE" autocomplete="off">
+        <button class="btn btn-secondary" id="mpJoinBtn">➡️ Rejoindre</button>
+      </div>
+      ${errorMsg ? `<div class="search-error">${mpEscapeHtml(errorMsg)}</div>` : ""}
+    `;
+    document.getElementById("mpCreateBtn").addEventListener("click", mpHandleCreate);
+    document.getElementById("mpJoinBtn").addEventListener("click", mpHandleJoin);
+    const codeInput = document.getElementById("mpCodeInput");
+    codeInput.addEventListener("input", () => {
+      codeInput.value = codeInput.value.toUpperCase();
+    });
+    codeInput.addEventListener("keydown", (e) => { if(e.key === "Enter") mpHandleJoin(); });
+    document.getElementById("mpNameInput").addEventListener("keydown", (e) => {
+      if(e.key === "Enter") mpHandleCreate();
+    });
+  }
+
+  function mpReadName(){
+    const input = document.getElementById("mpNameInput");
+    return (input ? input.value : "").trim().slice(0, 16);
+  }
+
+  async function mpHandleCreate(){
+    if(mpBusy) return;
+    const name = mpReadName();
+    if(!name){ mpRenderEntry("Choisis d'abord un pseudo."); return; }
+    mpBusy = true;
+    const btn = document.getElementById("mpCreateBtn");
+    if(btn) btn.disabled = true;
+    try{
+      const data = await mpApiPost("create", { name });
+      mpRoomCode = data.code;
+      mpPlayerId = data.playerId;
+      mpPlayerName = name;
+      mpSaveSession();
+      mpRenderRoomShell();
+      mpStartPolling();
+    }catch(e){
+      mpRenderEntry("Impossible de créer la partie : " + e.message);
+    }finally{
+      mpBusy = false;
+    }
+  }
+
+  async function mpHandleJoin(){
+    if(mpBusy) return;
+    const name = mpReadName();
+    const codeInput = document.getElementById("mpCodeInput");
+    const code = (codeInput ? codeInput.value : "").trim().toUpperCase();
+    if(!name){ mpRenderEntry("Choisis d'abord un pseudo."); return; }
+    if(!code){ mpRenderEntry("Entre le code de la partie à rejoindre."); return; }
+    mpBusy = true;
+    const btn = document.getElementById("mpJoinBtn");
+    if(btn) btn.disabled = true;
+    try{
+      const data = await mpApiPost("join", { code, name });
+      mpRoomCode = data.code;
+      mpPlayerId = data.playerId;
+      mpPlayerName = name;
+      mpSaveSession();
+      mpRenderRoomShell();
+      mpStartPolling();
+    }catch(e){
+      mpRenderEntry("Impossible de rejoindre : " + e.message);
+    }finally{
+      mpBusy = false;
+    }
+  }
+
+  // ---- Écran de la partie ----
+  function mpRenderRoomShell(){
+    mpBody.innerHTML = `
+      <div class="mp-code-banner">
+        <span>Code : <span class="mp-code-value" id="mpCodeValue">${mpEscapeHtml(mpRoomCode)}</span></span>
+        <button class="mp-copy-code-btn" id="mpCopyCodeBtn" title="Copier le code">📋</button>
+      </div>
+      <div id="mpHostControls"></div>
+      <div class="mp-my-secret" id="mpMySecret" style="display:none;"></div>
+      <div class="mp-round-banner" id="mpRoundBanner" style="display:none;"></div>
+      <div class="mp-section-label">Joueurs</div>
+      <div class="mp-players-list" id="mpPlayersList"></div>
+      <div id="mpGuessArea"></div>
+      <div class="mp-note" id="mpNoteText">Devine le Pokémon secret des autres joueurs avant eux pour marquer des points !</div>
+      <button class="mp-leave-btn" id="mpLeaveBtn">Quitter la partie</button>
+    `;
+    document.getElementById("mpLeaveBtn").addEventListener("click", mpLeaveRoom);
+    document.getElementById("mpCopyCodeBtn").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(mpRoomCode);
+        const btn = document.getElementById("mpCopyCodeBtn");
+        if(btn){ btn.textContent = "✅"; setTimeout(() => { btn.textContent = "📋"; }, 1200); }
+      }catch(e){}
+    });
+    mpApiGetState(mpRoomCode, mpPlayerId).then(state => { if(state){ mpRenderPlayersList(state); mpSyncMainScreen(state); } });
+  }
+
+  function mpRenderPlayersList(state){
+    if(!state || !state.players){
+      mpStopPolling();
+      mpRoomCode = null; mpPlayerId = null; mpPlayerName = null;
+      mpClearSession();
+      mpCurrentStatus = null;
+      mpUpdateDrawAvailability();
+      mpRenderEntry("La partie n'existe plus ou tu n'en fais plus partie.");
+      return;
+    }
+    mpCurrentStatus = state.status || "lobby";
+    mpUpdateDrawAvailability();
+    const me = state.me;
+    const isHost = !!state.isHost;
+    const isPlaying = state.status === "playing";
+
+    // ---- Zone réservée à l'hôte : lancer / relancer une manche pour tout le monde ----
+    const hostControls = document.getElementById("mpHostControls");
+    if(hostControls){
+      if(isHost){
+        hostControls.innerHTML = `<button class="btn btn-main" id="mpStartBtn">${isPlaying ? "🔁 Relancer une manche" : "🎲 Lancer la partie"}</button>`;
+        const startBtn = document.getElementById("mpStartBtn");
+        if(startBtn) startBtn.addEventListener("click", mpHandleStartRound);
+      }else{
+        hostControls.innerHTML = isPlaying ? "" : `<div class="mp-note">En attente que l'hôte lance la partie…</div>`;
+      }
+    }
+
+    // ---- Mon propre secret (si j'en ai un dans la manche en cours) ----
+    const mySecretBox = document.getElementById("mpMySecret");
+    if(mySecretBox){
+      if(me && me.pokemonId){
+        mySecretBox.style.display = "flex";
+        mySecretBox.innerHTML = `
+          <img src="${smallSpriteUrl(me.pokemonId)}" alt="">
+          <span>Ton secret : <span class="mp-secret-name">${mpEscapeHtml(me.pokemonName)}</span> — les autres tentent de le deviner</span>
+        `;
+      }else if(isPlaying){
+        mySecretBox.style.display = "flex";
+        mySecretBox.innerHTML = `<span>✅ Ton Pokémon a été trouvé ! Continue à deviner ceux des autres.</span>`;
+      }else{
+        mySecretBox.style.display = "none";
+      }
+    }
+
+    const noteText = document.getElementById("mpNoteText");
+    if(noteText){
+      noteText.textContent = isPlaying
+        ? "Devine le Pokémon secret des autres joueurs, même si le tien a déjà été trouvé ! La manche se termine quand il ne reste plus qu'un seul joueur non trouvé — une nouvelle manche démarre alors automatiquement pour tout le monde, scores conservés."
+        : "Une fois que l'hôte aura lancé la partie, chacun reçoit un Pokémon secret en même temps.";
+    }
+
+    const entries = state.players.slice().sort((a, b) => b.score - a.score || a.name.localeCompare(b.name));
+    const list = document.getElementById("mpPlayersList");
+    if(!list) return;
+    list.innerHTML = entries.map(p => {
+      const isMe = p.id === mpPlayerId;
+      let rightPart;
+      if(isMe){
+        rightPart = "";
+      }else if(p.hasPokemon){
+        rightPart = `<button class="mp-guess-btn" data-pid="${mpEscapeHtml(p.id)}" data-name="${mpEscapeHtml(p.name)}">🔎 Deviner</button>`;
+      }else if(isPlaying){
+        rightPart = `<span class="mp-player-waiting">trouvé ✅</span>`;
+      }else{
+        rightPart = `<span class="mp-player-waiting">en attente</span>`;
+      }
+      return `
+        <div class="mp-player-row${isMe ? " is-me" : ""}">
+          <span class="mp-player-name">${mpEscapeHtml(p.name)}${isMe ? " (toi)" : ""}${p.id === state.hostId ? " 👑" : ""}</span>
+          <span class="mp-player-score">${p.score} pt${p.score > 1 ? "s" : ""}</span>
+          ${rightPart}
+        </div>`;
+    }).join("");
+
+    list.querySelectorAll(".mp-guess-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        mpOpenGuessBox(btn.dataset.pid, btn.dataset.name);
+      });
+    });
+  }
+
+  // Affiche le Pokémon secret du joueur sur l'écran PRINCIPAL du Pokédex (celui
+  // derrière la popup Multijoueur), pas seulement dans la petite case du menu.
+  // Appelée à chaque fois qu'on récupère un état frais, elle ne déclenche l'affichage
+  // que si le secret a réellement changé (nouveau tirage), pour ne pas re-flasher
+  // inutilement à chaque sondage de 3s.
+  async function mpSyncMainScreen(state){
+    if(!state || !state.me) return;
+    const newId = state.me.pokemonId || null;
+    if(newId && newId !== mpLastRenderedPokemonId){
+      mpLastRenderedPokemonId = newId;
+      try{
+        const data = await loadPokemon(newId);
+        renderPokemon(data);
+        pushHistory(data);
+      }catch(e){}
+      // On ferme la popup Multijoueur pour laisser voir l'écran du Pokédex avec le
+      // nouveau secret révélé (petit délai pour laisser le temps de lire un éventuel
+      // message de fin de manche affiché juste avant).
+      setTimeout(() => { mpClose(); }, 900);
+    }else if(!newId){
+      mpLastRenderedPokemonId = null;
+    }
+  }
+
+  function mpShowRoundBanner(text){
+    const banner = document.getElementById("mpRoundBanner");
+    if(!banner) return;
+    banner.style.display = "block";
+    banner.textContent = text;
+    setTimeout(() => { banner.style.display = "none"; }, 5000);
+  }
+
+  async function mpHandleStartRound(){
+    if(mpBusy || !mpRoomCode) return;
+    mpBusy = true;
+    const startBtn = document.getElementById("mpStartBtn");
+    if(startBtn) startBtn.disabled = true;
+    mpClose(); // on ferme tout de suite pour voir le tirage se dérouler sur l'écran principal
+    setLights("busy");
+    renderLoading();
+    startDexFlicker();
+    soundDraw();
+    try{
+      await mpApiPost("start", { code: mpRoomCode, playerId: mpPlayerId });
+      const state = await mpApiGetState(mpRoomCode, mpPlayerId);
+      if(state && state.me && state.me.pokemonId){
+        mpLastRenderedPokemonId = state.me.pokemonId;
+        const data = await loadPokemon(state.me.pokemonId);
+        await new Promise(r => setTimeout(r, 550));
+        stopDexFlicker(data.id);
+        renderPokemon(data);
+        pushHistory(data);
+        soundReveal();
+      }else{
+        stopDexFlicker(randomId());
+        setLights(null);
+      }
+      if(state) mpRenderPlayersList(state);
+    }catch(err){
+      stopDexFlicker(randomId());
+      screenContent.innerHTML = `<div class="empty-hint">Erreur de chargement.<br>Vérifie ta connexion et réessaie.</div>`;
+      setLights(null);
+    }finally{
+      if(startBtn) startBtn.disabled = false;
+      mpBusy = false;
+    }
+  }
+
+  function mpOpenGuessBox(targetId, targetName){
+    mpGuessTargetId = targetId;
+    const area = document.getElementById("mpGuessArea");
+    if(!area) return;
+    area.innerHTML = `
+      <div class="mp-guess-box">
+        <div class="mp-guess-title">Deviner le Pokémon de ${mpEscapeHtml(targetName)}</div>
+        <input type="text" id="mpGuessInput" class="mp-input" placeholder="Nom du Pokémon" autocomplete="off">
+        <div class="search-suggest" id="mpGuessSuggest" style="display:none;"></div>
+        <div class="btn-row">
+          <button class="btn btn-main" id="mpGuessSubmit">Valider</button>
+          <button class="btn btn-secondary" id="mpGuessCancel">Annuler</button>
+        </div>
+        <div class="mp-guess-feedback" id="mpGuessFeedback"></div>
+      </div>
+    `;
+    const input = document.getElementById("mpGuessInput");
+    const suggestBox = document.getElementById("mpGuessSuggest");
+    input.focus();
+
+    let suggestTimer = null;
+    input.addEventListener("input", () => {
+      clearTimeout(suggestTimer);
+      const raw = input.value;
+      if(!raw.trim()){ suggestBox.style.display = "none"; suggestBox.innerHTML = ""; return; }
+      suggestTimer = setTimeout(async () => {
+        const list = await getFrenchIndex();
+        if(!list.length) return;
+        const matches = matchFrenchIndex(raw, list, 6);
+        if(!matches.length){ suggestBox.style.display = "none"; suggestBox.innerHTML = ""; return; }
+        suggestBox.innerHTML = matches.map(m => `
+          <button type="button" class="search-suggest-item" data-name="${mpEscapeHtml(m.name)}">
+            <img src="${smallSpriteUrl(m.id)}" alt="">
+            <span class="search-suggest-name">${mpEscapeHtml(m.name)}</span>
+          </button>
+        `).join("");
+        suggestBox.style.display = "block";
+        suggestBox.querySelectorAll(".search-suggest-item").forEach(item => {
+          item.addEventListener("click", () => {
+            input.value = item.dataset.name;
+            suggestBox.style.display = "none";
+            suggestBox.innerHTML = "";
+          });
+        });
+      }, 200);
+    });
+    input.addEventListener("keydown", (e) => { if(e.key === "Enter") mpSubmitGuess(); });
+    document.getElementById("mpGuessSubmit").addEventListener("click", mpSubmitGuess);
+    document.getElementById("mpGuessCancel").addEventListener("click", mpCancelGuess);
+  }
+
+  function mpCancelGuess(){
+    mpGuessTargetId = null;
+    const area = document.getElementById("mpGuessArea");
+    if(area) area.innerHTML = "";
+  }
+
+  async function mpSubmitGuess(){
+    if(!mpGuessTargetId || !mpRoomCode) return;
+    const input = document.getElementById("mpGuessInput");
+    const feedback = document.getElementById("mpGuessFeedback");
+    const submitBtn = document.getElementById("mpGuessSubmit");
+    const raw = input ? input.value.trim() : "";
+    if(!raw) return;
+    if(submitBtn) submitBtn.disabled = true;
+
+    const targetId = mpGuessTargetId;
+    try{
+      const result = await mpApiPost("guess", { code: mpRoomCode, playerId: mpPlayerId, targetId, guess: raw });
+      if(result.gone){
+        if(feedback){
+          feedback.textContent = "Trop tard : ce Pokémon a déjà été deviné, ou ce joueur n'a plus de secret en cours.";
+          feedback.className = "mp-guess-feedback ko";
+        }
+        const state = await mpApiGetState(mpRoomCode, mpPlayerId);
+        if(state){ mpRenderPlayersList(state); mpSyncMainScreen(state); }
+        return;
+      }
+      if(result.correct){
+        if(feedback){
+          feedback.textContent = `✅ Bravo, c'était bien ${result.name} ! +1 point.`;
+          feedback.className = "mp-guess-feedback ok";
+        }
+        const state = await mpApiGetState(mpRoomCode, mpPlayerId);
+        if(state) mpRenderPlayersList(state);
+        if(result.roundEnded){
+          mpShowRoundBanner(`🏆 ${result.lastPlayerName} était le dernier non trouvé (+1 point bonus) ! Nouvelle manche lancée, scores conservés.`);
+        }
+        // Que la manche continue ou qu'elle vienne de redémarrer, si mon secret a
+        // changé, on l'affiche sur l'écran principal (comme pour un tirage classique).
+        if(state) await mpSyncMainScreen(state);
+        setTimeout(mpCancelGuess, 1400);
+      }else{
+        if(feedback){
+          feedback.textContent = "❌ Raté, essaie encore !";
+          feedback.className = "mp-guess-feedback ko";
+        }
+      }
+    }catch(e){
+      if(feedback){
+        feedback.textContent = "Erreur réseau, réessaie.";
+        feedback.className = "mp-guess-feedback ko";
+      }
+    }finally{
+      if(submitBtn) submitBtn.disabled = false;
+    }
+  }
+
+  async function mpLeaveRoom(){
+    mpStopPolling();
+    const code = mpRoomCode, pid = mpPlayerId;
+    mpRoomCode = null; mpPlayerId = null; mpPlayerName = null; mpGuessTargetId = null;
+    mpCurrentStatus = null;
+    mpUpdateDrawAvailability();
+    mpClearSession();
+    mpRenderEntry();
+    if(code && pid){
+      try{ await mpApiPost("leave", { code, playerId: pid }); }catch(e){}
+    }
+  }
+
   // ---------- Actions ----------
   async function drawPokemon(){
     clearNotepad();
@@ -2128,9 +2859,10 @@
       `${d.displayName || formatName(d.name)} (N° ${String(d.id).padStart(3,"0")} national${d.regionalNumber ? `, N° ${String(d.regionalNumber).padStart(3,"0")} ${d.regionalRegion}` : ""})`,
       d.genus,
       `Types : ${d.types.map(t => TYPE_FR[t]||t).join(", ")}`,
+      `Catégorie : ${d.category.icon} ${d.category.label}`,
+      `Capture : ${d.captureRate.icon} ${d.captureRate.label}`,
       `Génération : ${d.generation}`,
       `Taille : ${d.heightM} m — Poids : ${d.weightKg} kg`,
-      `Stats : ${d.stats.map(s => (STAT_FR[s.name]||s.name)+" "+s.value).join(", ")}`,
       `"${d.flavor}"`
     ];
     const text = lines.join("\n");
@@ -2174,9 +2906,17 @@
   searchInput.addEventListener("input", onSearchInputTyped);
   searchOverlay.addEventListener("click", (e) => { if(e.target === searchOverlay) closeSearch(); });
 
-  renderHistory();
+  btnMultiplayer.addEventListener("click", mpOpen);
+  btnMpClose.addEventListener("click", mpClose);
+  mpOverlay.addEventListener("click", (e) => { if(e.target === mpOverlay) mpClose(); });
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && mpOverlay.classList.contains("open")) mpClose();
+  });
+
+  clearHistory(); // vide l'historique des tirages à chaque chargement de page (F5)
   setLights(null);
   getFrenchIndex(); // préchauffe l'index des noms français pour des suggestions instantanées
+  mpClearSession(); // on ne recolle plus automatiquement à l'ancienne partie après un rechargement
 })();
 </script>
 </body>
